@@ -2,32 +2,22 @@
 
 'use server';
 
-import { StockData, stockDataSchema } from '@/models/stock-data';
-import {
-  StockDataParams
-} from '@/models/stock-data-params';
-import { parse } from 'csv-parse';
 import fs from 'fs';
+import { parse } from 'csv-parse';
+import { StockData, stockDataSchema } from '@/models/stock-data';
 
-export async function getStockData(
-  params: StockDataParams
-): Promise<Array<StockData>> {
+export async function getPrices(): Promise<Array<StockData>> {
   const filePath = 'src/data/stock-prices.csv';
 
   try {
     // Read the CSV file content
     const fileContent = fs.readFileSync(filePath, 'utf-8');
 
-   
-
-    const { ticker, startDate, endDate } = params;
-
-    const results: StockData[] = [];
-
     return new Promise((resolve, reject) => {
+      const results: StockData[] = [];
+
       const parser = parse({
         columns: (header) => {
-          // Rename the 'index' column to 'id'
           return header.map((col: string) =>
             col.trim().toLowerCase() === '' ? 'index' : col.trim().toLowerCase()
           );
@@ -42,8 +32,7 @@ export async function getStockData(
         let record;
         while ((record = parser.read()) !== null) {
           try {
-            // Map CSV columns to the schema
-            const mappedRecord: StockData = {
+            const mappedRecord = {
               index: record.index ?? '',
               date: record.date ?? '',
               open: record.open,
@@ -54,18 +43,9 @@ export async function getStockData(
               ticker: record.ticker ?? ''
             };
 
-            // Parse and validate each record using Zod
             const parsedRecord = stockDataSchema.parse(mappedRecord);
 
-            // Filter records based on ticker and optional date range
-            if (
-              parsedRecord.ticker === ticker &&
-              (!startDate ||
-                new Date(parsedRecord.date) >= new Date(startDate)) &&
-              (!endDate || new Date(parsedRecord.date) <= new Date(endDate))
-            ) {
-              results.push(parsedRecord);
-            }
+            results.push(parsedRecord);
           } catch (validationError) {
             console.error('Validation error:', validationError);
           }
@@ -77,12 +57,11 @@ export async function getStockData(
       });
 
       parser.on('error', (error) => {
-        console.error('Error occurred during CSV parsing:', error);
-        reject(new Error('Failed to parse the CSV file.'));
+        reject(new Error(`Failed to parse the CSV file. ${error}`));
       });
     });
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error reading the CSV file:', error);
-      throw new Error('Failed to read the CSV file.');
+    throw new Error('Failed to read the CSV file.');
   }
 }
