@@ -1,36 +1,96 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-## Getting Started
+# Stock Price Analysis and Visualization
 
-First, run the development server:
+## Description
+
+This project is a Next.js 14 (App Router) application that analyzes and visualizes stock price data for multiple tech companies. The application allows users to select a stock, define a date range, and choose an analysis type. The results are displayed in both tabular and chart formats. The app uses server actions for data processing, including retrieving stock data and calculating daily returns. This project demonstrates proficiency in Next.js server actions, TypeScript, Tailwind CSS, and data visualization using Recharts.
+
+## Features
+
+- **Stock Data Retrieval:** Fetch stock price data based on ticker and date range.
+- **Daily Returns Calculation:** Compute daily returns for selected stocks.
+- **Interactive UI:** Select stocks, date ranges, and analysis types using a form.
+- **Data Visualization:** Display stock data and analysis results in both tables and charts.
+- **Stock Comparison:** Compare multiple stocks' performance over a defined period.
+
+## Technologies Used
+
+- **Next.js 14**: App Router for server actions and efficient data handling.
+- **TypeScript**: Strong typing and interfaces for better code quality and maintainability.
+- **Tailwind CSS**: Utility-first CSS framework for styling.
+- **React Hook Form**: Manage form state efficiently.
+- **ShadCN UI**: Pre-built UI components and table with filtering functionality.
+- **Recharts**: Data visualization library for rendering dynamic charts.
+
+## Setup Instructions
+
+### Prerequisites
+
+Ensure you have the following installed on your machine:
+
+- Node.js (version 16 or later)
+- npm or any other package manager (e.g., Yarn)
+
+### Installation
+
+1. **Clone the repository:**
+   ```bash
+   git clone <repository-url>
+   cd <repository-directory>
+   ```
+
+2. **Install dependencies:**
+   ```bash
+   npm install
+   ```
+   Alternatively, you can use Yarn:
+   ```bash
+   yarn install
+   ```
+
+3. **Run the development server:**
+   ```bash
+   npm run dev
+   ```
+   Or with Yarn:
+   ```bash
+   yarn dev
+   ```
+
+4. **Open the application in your browser:**
+   Navigate to `http://localhost:3000` to view the application.
+
+### Project Structure
+
+- **/app:** Contains the core pages and components of the application.
+- **/components:** Reusable React components for UI and forms.
+- **/lib:** Server actions for data processing and calculations.
+- **/styles:** Tailwind CSS configuration and global styles.
+- **/tests:** Unit tests for data analysis functions.
+
+### Testing
+
+Run unit tests with the following command:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm run test
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Or with Yarn:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+yarn test
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Usage
 
-## Learn More
+1. Select the desired stock ticker and date range from the form.
+2. Choose the type of analysis you want to perform (e.g., daily returns).
+3. View the results displayed in a dynamic chart.
+4. Compare multiple stocks using the main chart with multiple analysis type.
 
-To learn more about Next.js, take a look at the following resources:
+## Documentation
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **Code Comments:** Inline comments are provided for complex logic and calculations.
+- **Function Documentation:** Each function in the server actions and data analysis includes documentation detailing its purpose, input, and output.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
